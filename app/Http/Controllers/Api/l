@@ -1,0 +1,718 @@
+{"errors"
+:{"title":["The title field is required."],
+"slug":["The slug field is required."],
+"price":["The price field is required."],
+"featured":["The featured field is required."],
+"purpose":["The purpose field is required."],
+"category_id ":["The category id field is required."],
+"bedroom":["The bedroom field is required."],
+"bathroom":["The bathroom field is required."],
+"detailed_address":["The detailed address field is required."],
+"Area":["The area field is required."],
+"Year_building":["The year building field is required."],
+"Finishing_type":["The finishing type field is required."],
+"License_RealEstate":["The license  real estate field is required."],
+"Payment_method":["The payment method field is required."],
+"location_id ":["The location id field is required."],
+"agent_id ":["The agent id field is required."],
+"description":["The description field is required."],
+"floor_plan":["The floor plan field is required."],
+"location_latitude":["The location latitude field is required."],
+"location_longitude":["The location longitude field is required."]}}
+//////////////////////////////////////////////////////////////
+public function store(Request $request)
+{
+  /*   $property = Properties::create($request->all());
+    return response()->json($property, 201);
+
+
+     */
+    $property = Properties::create([
+        'title' => $request->input('title'),
+        'slug' => $request->input('slug'),
+        'price' => $request->input('price'),
+        'featured' => $request->input('featured'),
+         'purpose' => $request->input('purpose'),
+        'category_id' => $request->input('category_id'),
+        'image' => $request->input('image'),
+        'bedroom' => $request->input('bedroom'),
+         'bathroom' => $request->input('bathroom'),
+        'detailed_address' => $request->input('detailed_address'),
+        'Area' => $request->input('Area'),
+        'Year_building' => $request->input('Year_building'),
+        'Finishing_type' => $request->input('Finishing_type'),
+        'License_RealEstate' => $request->input('License_RealEstate'),
+         'Payment_method' => $request->input('Payment_method'),
+        'location_id' => $request->input('location_id'),
+        'agent_id' => $request->input('agent_id'),
+        'description' => $request->input('description'),
+         'video' => $request->input('video'),
+        'floor_plan' => $request->input('floor_plan'),
+      
+        'location_latitude' => $request->input('location_latitude'),
+        'location_longitude' => $request->input('location_longitude'),
+    ]);
+    return response()->json($property, 201);
+
+}
+//////////////////////////
+
+
+ /*   public function create(Request $request)
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+    
+        $imgPath = null;
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $extension = $img->getClientOriginalExtension();
+            $imgName = "property_image" . uniqid() . ".$extension";
+            $img->move(public_path('uploads/property_images'), $imgName);
+            $imgPath = 'uploads/property_images/' . $imgName;
+        }
+    
+        $videoPath = null;
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $extension = $video->getClientOriginalExtension();
+            $videoName = "property_video" . uniqid() . ".$extension";
+            $video->move(public_path('uploads/property_videos'), $videoName);
+            $videoPath = 'uploads/property_videos/' . $videoName;
+        }
+    
+        $properties = new Properties($request->all());
+        $properties->image = $imgPath;
+        $properties->video = $videoPath;
+        $properties->save();
+    
+        return response()->json(['message' => 'Property created successfully', 'data' => $properties], 201);
+    }  */
+    
+
+
+
+
+
+  /*   public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title'=>'required|varchar',
+            'slug'=>'required|varchar',
+           'price'=>'required|double',
+           'featured'=>'required|tinyint',
+        
+           'purpose' => ['required', Rule::in(['buy', 'rent'])],
+
+           'category_id '=>'required|int',
+           'image'=>'nullable|image|mimes:jpg,png,jpeg',
+           'bedroom'=>'required|int',
+           'bathroom'=>'required|int',
+           'detailed_address'=>'required|varchar',
+           'Area'=>'required|varchar',
+           'Year_building'=>'required|date',
+           'Finishing_type'=>'required|text',
+           'License_RealEstate'=>'required|varchar',
+           'Payment_method' => ['required', Rule::in(['installment', 'cash'])], 
+           'location_id '=>'required|int',
+           'agent_id '=>'required|int',
+           'description'=>'required|text',
+           'video'=> 'nullable|mimes:mp4,mov,avi|max:10240',
+           'floor_plan'=>'required|varchar',
+           'location_latitude'=>'required|varchar',
+           'location_longitude'=>'required|varchar',
+
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        
+        $imgPath = null;
+        if ($request->hasFile('realestat_img')) {
+            $img = $request->file('realestat_img');
+            $extension = $img->getClientOriginalExtension();
+            $imgName = "realestat_img" . uniqid() . ".$extension";
+            $img->move(public_path('uploads/realestat_img'), $imgName);
+            $imgPath = 'uploads/realestat_img/' . $imgName;
+        }
+   
+        $videoPath = null;
+        if ($request->hasFile('realestat_video')) {
+            $video = $request->file('realestat_video');
+            $extension = $video->getClientOriginalExtension();
+            $videoName = "realestat_video" . uniqid() . ".$extension";
+            $video->move(public_path('uploads/realestat_video'), $videoName);
+            $videoPath = 'uploads/realestat_video/' . $videoName;
+    
+    }
+           $Properties = new Properties(); 
+            $Properties->title = $request->input('title');
+            $Properties->slug = $request->input('slug');
+            $Properties->price = $request->input('price');
+            $Properties->featured = $request->input('featured');
+            $Properties->purpose = $request->input('purpose');
+            $Properties->category_id = $request->input('category_id');
+            $Properties->image = $imgName;
+            $Properties->bedroom = $request->input('bedroom');
+            $Properties->bathroom = $request->input('bathroom');
+            $Properties->detailed_address = $request->input('detailed_address');
+            $Properties->Area = $request->input('Area');
+            $Properties->Year_building = $request->input('Year_building');
+            $Properties->Finishing_type = $request->input('Finishing_type');
+            $Properties->License_RealEstate = $request->input('License_RealEstate');
+            $Properties->Payment_method = $request->input('Payment_method');
+            $Properties->location_id = $request->input('location_id');
+            $Properties->agent_id = $request->input('agent_id');
+            $Properties->description = $request->input('description');
+            $Properties->video = $videoName;
+            $Properties->floor_plan = $request->input('floor_plan');
+            $Properties->location_latitude = $request->input('location_latitude');
+            $Properties->location_longitude = $request->input('location_longitude');        
+            $Properties->save();
+            return response()->json(['message' => 'Property created successfully', 'data' => $Properties], 201);
+
+
+          
+        
+    
+        } */   /*  public function update(Request $request, $id)
+    {
+        $property = Properties::find($id);
+
+        // Check if the property exists
+        if (!$property) {
+            return Response::json(['error' => 'Property not found'], 404);
+        }
+
+        // Validate the request data
+        $this->validate($request, [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ]);
+
+        // Update the property with the new data
+        $property->update([
+            'title' => $request->input('title'),
+            'slug' => $request->input('slug'),
+            'price' => $request->input('price'),
+            'featured' => $request->input('featured'),
+            'purpose' => $request->input('purpose'),
+            'category_id' => $request->input('category_id'),
+            'image' => $request->input('featured'),
+            'bedroom' => $request->input('bedroom'),
+            'bathroom' => $request->input('bathroom'),
+            'detailed_address' => $request->input('detailed_address'),
+            'Area' => $request->input('Area'),
+            'Year_building' => $request->input('Year_building'),
+            'Finishing_type' => $request->input('Finishing_type'),
+            'License_RealEstate' => $request->input('License_RealEstate'),
+            'Payment_method' => $request->input('Payment_method'),
+            'location_id' => $request->input('location_id'),
+            'agent_id' => $request->input('agent_id'),
+            'description' => $request->input('description'),
+            'video' => $request->input('video'),
+            'floor_plan' => $request->input('floor_plan'),
+            'location_latitude' => $request->input('location_latitude'),
+            'location_longitude' => $request->input('location_longitude'),
+
+        ]);
+
+        // Handle image update if a new image is provided
+        if ($request->hasFile('realestat_img')) {
+            $img = $request->file('realestat_img');
+            if ($img->isValid()) {
+                $extension = $img->getClientOriginalExtension();
+                $imageName = "realestat_img" . uniqid() . ".$extension";
+                $img->move(public_path('uploads/realestat_img'), $imageName);
+            } else {
+                // Handle invalid file (optional)
+                return response()->json(['error' => 'Invalid image file'], 400);
+            }
+        }
+
+        // Handle video update if a new video is provided
+        if ($request->hasFile('realestat_video')) {
+            $video = $request->file('realestat_video');
+                    
+            if ($video->isValid()) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = "realestat_video" . uniqid() . ".$extension";
+                $video->move(public_path('uploads/realestat_video'), $videoName);
+            } else {
+                // Handle invalid file (optional)
+                return response()->json(['error' => 'Invalid video file'], 400);
+            }
+        }
+
+        return response()->json(['msg' => 'Property updated successfully', 'status' => 200]);
+    }
+ */
+
+
+
+ 
+/*  public function update(Request $request, $id)
+{
+   
+    // Validate the request data
+    $this->validate($request, [
+        'title' => 'required|string',
+        'slug' => 'required|string',
+        'price' => 'required|numeric',
+        'featured' => 'required|string',
+        'purpose' => ['required', Rule::in(['buy', 'rent'])],
+        'category_id' => 'required|int',
+        'bedroom' => 'required|int',
+        'bathroom' => 'required|int',
+        'detailed_address' => 'required|string',
+        'Area' => 'required|string',
+        'Year_building' => 'required|numeric',
+        'Finishing_type' => 'required|string',
+        'License_RealEstate' => 'required|string',
+        'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+        'location_id' => 'required|int',
+        'agent_id' => 'required|int',
+        'description' => 'required|string',
+        'floor_plan' => 'required|string',
+        'location_latitude' => 'required|string',
+        'location_longitude' => 'required|string',
+    ]);
+
+    $property = Properties::find($id);
+
+  
+    if (!$property) {
+        return Response::json(['error' => 'Property not found'], 404);
+    }
+    
+
+
+
+    // Update the property with the new data
+   /*  $updatedData = [
+        'title' => $request->input('title'),
+        'slug' => $request->input('slug'),
+        'price' => $request->input('price'),
+        'featured' => $request->input('featured'),
+        'purpose' => $request->input('purpose'),
+        'category_id' => $request->input('category_id'),
+        'bedroom' => $request->input('bedroom'),
+        'bathroom' => $request->input('bathroom'),
+        'detailed_address' => $request->input('detailed_address'),
+        'Area' => $request->input('Area'),
+        'Year_building' => $request->input('Year_building'),
+        'Finishing_type' => $request->input('Finishing_type'),
+        'License_RealEstate' => $request->input('License_RealEstate'),
+        'Payment_method' => $request->input('Payment_method'),
+        'location_id' => $request->input('location_id'),
+        'agent_id' => $request->input('agent_id'),
+        'description' => $request->input('description'),
+        'floor_plan' => $request->input('floor_plan'),
+        'location_latitude' => $request->input('location_latitude'),
+        'location_longitude' => $request->input('location_longitude'),
+    ]; */
+ 
+
+
+
+
+
+
+   
+
+   
+
+
+
+  
+    
+    
+
+
+
+
+
+           /**
+     * Update the specified resource in storage.
+     */
+  /*   public function update(Request $request, string $id)
+    {  $validator = Validator::make($request->all(),
+          [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        
+        $imgPath = null;
+        if ($request->hasFile('realestat_img')) {
+            $img = $request->file('realestat_img');
+            $extension = $img->getClientOriginalExtension();
+            $imgName = "realestat_img" . uniqid() . ".$extension";
+            $img->move(public_path('uploads/realestat_img'), $imgName);
+            $imgPath = 'uploads/realestat_img/' . $imgName;
+        }
+        $videoPath = null;
+        if ($request->hasFile('realestat_video')) {
+            $video = $request->file('realestat_video');
+            $extension = $video->getClientOriginalExtension();
+            $videoName = "realestat_video" . uniqid() . ".$extension";
+            $video->move(public_path('uploads/realestat_video'), $videoName);
+            $videoPath = 'uploads/realestat_video/' . $videoName;
+    
+    }
+
+    $Properties = new Properties(); 
+    $Properties->title = $request->input('title');
+    $Properties->slug = $request->input('slug');
+    $Properties->price = $request->input('price');
+    $Properties->featured = $request->input('featured');
+    $Properties->purpose = $request->input('purpose');
+    $Properties->category_id = $request->input('category_id');
+    $Properties->image = $imgPath;
+    $Properties->bedroom = $request->input('bedroom');
+    $Properties->bathroom = $request->input('bathroom');
+    $Properties->detailed_address = $request->input('detailed_address');
+    $Properties->Area = $request->input('Area');
+    $Properties->Year_building = $request->input('Year_building');
+    $Properties->Finishing_type = $request->input('Finishing_type');
+    $Properties->License_RealEstate = $request->input('License_RealEstate');
+    $Properties->Payment_method = $request->input('Payment_method');
+    $Properties->location_id = $request->input('location_id');
+    $Properties->agent_id = $request->input('agent_id');
+    $Properties->description = $request->input('description');
+    $Properties->video = $videoPath;
+    $Properties->floor_plan = $request->input('floor_plan');
+    $Properties->location_latitude = $request->input('location_latitude');
+    $Properties->location_longitude = $request->input('location_longitude'); 
+
+    $Properties->save();
+    return response()->json(['message' => 'Property updeted successfully', 'data' => $Properties], 201);
+
+
+    } */
+
+   /*  public function update(Request $request, $id)
+    {
+
+        $this->validate($request, [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ]);
+        $property = Properties::find($id);
+        if (!$property) {
+            return response()->json(['error' => 'Property not found'], 404);
+        }
+
+
+     $imageName = null;
+
+
+                if ($request->hasFile('realestat_img')) {
+                  
+                    $img = $request->file('realestat_img');
+                    if ($img->isValid()) {
+                        $extension = $img->getClientOriginalExtension();
+                        $imageName = "realestat_img" . uniqid() . ".$extension";
+                        $img->move(public_path('uploads/realestat_img'), $imageName);
+                    } else {
+                        // Handle invalid file (optional)
+                        return response()->json(['error' => 'Invalid image file'], 400);
+                    }
+                }
+                $videoName = null;
+
+                if ($request->hasFile('realestat_video')) {
+                    $video = $request->file('realestat_video');
+                    
+                    if ($video->isValid()) {
+                        $extension = $video->getClientOriginalExtension();
+                        $videoName = "realestat_video" . uniqid() . ".$extension";
+                        $video->move(public_path('uploads/realestat_video'), $videoName);
+                    } else {
+                        // Handle invalid file (optional)
+                        return response()->json(['error' => 'Invalid video file'], 400);
+                    }
+                }
+
+
+      $property->update($request->all());
+
+        // Return a success response
+        return response()->json(['message' => 'Property updated successfully', 'data' => $property], 200);
+    
+
+    } */
+
+    public function edit(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ] );
+
+      
+        $imageName = null;
+
+
+        if ($request->hasFile('realestat_img')) {
+          
+            $img = $request->file('realestat_img');
+            if ($img->isValid()) {
+                $extension = $img->getClientOriginalExtension();
+                $imageName = "realestat_img" . uniqid() . ".$extension";
+                $img->move(public_path('uploads/realestat_img'), $imageName);
+            } else {
+                // Handle invalid file (optional)
+                return response()->json(['error' => 'Invalid image file'], 400);
+            }
+        }
+        $videoName = null;
+
+        if ($request->hasFile('realestat_video')) {
+            $video = $request->file('realestat_video');
+            
+            if ($video->isValid()) {
+                $extension = $video->getClientOriginalExtension();
+                $videoName = "realestat_video" . uniqid() . ".$extension";
+                $video->move(public_path('uploads/realestat_video'), $videoName);
+            } else {
+                // Handle invalid file (optional)
+                return response()->json(['error' => 'Invalid video file'], 400);
+            }
+        }
+        $property = Properties::find($id);
+        $property->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'price' => $request->price,
+            'featured' => $request->featured,
+            'purpose' => $request->purpose,
+            'category_id' => $request->category_id,
+            'bedroom' => $request->bedroom,
+            'bathroom' => $request->bathroom,
+            'detailed_address' => $request->detailed_address,
+            'Area' => $request->Area,
+            'Year_building' => $request->Year_building,
+            'Finishing_type' => $request->Finishing_type,
+            'License_RealEstate' => $request->License_RealEstate,
+            'Payment_method' => $request->Payment_method,
+            'location_id' => $request->location_id,
+            'agent_id' => $request->agent_id,
+            'description' => $request->description,
+            'floor_plan' => $request->floor_plan,
+            'location_latitude' => $request->location_latitude,
+            'location_longitude' => $request->location_longitude,
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = "property_image_" . uniqid() . "." . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads'), $imageName);
+            $property->image = $imageName;
+            $property->save();
+        }
+
+        // Handle video upload
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $videoName = "property_video_" . uniqid() . "." . $video->getClientOriginalExtension();
+            $video->move(public_path('uploads'), $videoName);
+            $property->video = $videoName;
+            $property->save();
+        }
+
+        // Return a success response
+        return response()->json(['message' => 'Property updated successfully', 'data' => $property], 200);
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'price' => 'required|numeric',
+            'featured' => 'required|string',
+            'purpose' => ['required', Rule::in(['buy', 'rent'])],
+            'category_id' => 'required|int',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'bedroom' => 'required|int',
+            'bathroom' => 'required|int',
+            'detailed_address' => 'required|string',
+            'Area' => 'required|string',
+            'Year_building' => 'required|numeric',
+            'Finishing_type' => 'required|string',
+            'License_RealEstate' => 'required|string',
+            'Payment_method' => ['required', Rule::in(['installment', 'cash'])],
+            'location_id' => 'required|int',
+            'agent_id' => 'required|int',
+            'description' => 'required|string',
+            'video' => 'nullable|mimes:mp4,mov,avi|max:10240',
+            'floor_plan' => 'required|string',
+            'location_latitude' => 'required|string',
+            'location_longitude' => 'required|string',
+        ]);
+    
+        $property = Properties::find($id);
+        if (!$property) {
+            return response()->json(['error' => 'Property not found'], 404);
+        }
+    
+        // Update fields with the provided data
+        $property->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'price' => $request->price,
+            'featured' => $request->featured,
+            'purpose' => $request->purpose,
+            'category_id' => $request->category_id,
+            'bedroom' => $request->bedroom,
+            'bathroom' => $request->bathroom,
+            'detailed_address' => $request->detailed_address,
+            'Area' => $request->Area,
+            'Year_building' => $request->Year_building,
+            'Finishing_type' => $request->Finishing_type,
+            'License_RealEstate' => $request->License_RealEstate,
+            'Payment_method' => $request->Payment_method,
+            'location_id' => $request->location_id,
+            'agent_id' => $request->agent_id,
+            'description' => $request->description,
+            'floor_plan' => $request->floor_plan,
+            'location_latitude' => $request->location_latitude,
+            'location_longitude' => $request->location_longitude,
+        ]);
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = "property_image_" . uniqid() . "." . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads'), $imageName);
+            $property->image = $imageName;
+            $property->save();
+        }
+    
+        // Handle video upload
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $videoName = "property_video_" . uniqid() . "." . $video->getClientOriginalExtension();
+            $video->move(public_path('uploads'), $videoName);
+            $property->video = $videoName;
+            $property->save();
+        }
+    
+        // Return a success response
+        return response()->json(['message' => 'Property updated successfully', 'data' => $property], 200);
+    }
